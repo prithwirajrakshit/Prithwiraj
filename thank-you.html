@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful — The VirtusFX Playbook Access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0d14;
+      --card-bg: rgba(18, 24, 38, 0.85);
+      --card-border: rgba(212, 175, 55, 0.25);
+      --gold-primary: #d4af37;
+      --gold-gradient: linear-gradient(135deg, #f3e7be 0%, #d4af37 50%, #aa820a 100%);
+      --gold-glow: rgba(212, 175, 55, 0.35);
+      --green-success: #10b981;
+      --green-glow: rgba(16, 185, 129, 0.3);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-glow: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.15), transparent 70%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(212, 175, 55, 0.12), transparent),
+        radial-gradient(circle 600px at 50% 100%, rgba(16, 185, 129, 0.08), transparent);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 560px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 175, 55, 0.08);
+      position: relative;
+      animation: popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Success Icon */
+    .success-badge {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.12);
+      border: 2px solid var(--green-success);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: 0 0 25px var(--green-glow);
+      animation: pulseGreen 2.5s infinite ease-in-out;
+    }
+
+    @keyframes pulseGreen {
+      0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+      50% { box-shadow: 0 0 35px rgba(16, 185, 129, 0.55); }
+    }
+
+    .success-badge svg {
+      width: 38px;
+      height: 38px;
+      color: var(--green-success);
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    /* Product card */
+    .product-box {
+      background: rgba(10, 14, 22, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-align: left;
+    }
+
+    .product-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--gold-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 15px var(--gold-glow);
+    }
+
+    .product-icon svg {
+      width: 26px;
+      height: 26px;
+      color: #0a0d14;
+    }
+
+    .product-details h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 3px;
+    }
+
+    .product-details p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Countdown Bar */
+    .redirect-status {
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px dashed rgba(212, 175, 55, 0.3);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #f1f5f9;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .redirect-status span.timer-count {
+      color: var(--gold-primary);
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Main CTA Button */
+    .btn-access {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--gold-gradient);
+      color: #0b0f19;
+      font-family: 'Outfit', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 24px var(--gold-glow);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-access:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.5);
+      filter: brightness(1.06);
+    }
+
+    .btn-access svg {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-access:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Instructions / Help */
+    .support-note {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .support-note a {
+      color: var(--gold-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .support-note a:hover {
+      text-decoration: underline;
+    }
+
+    .cancel-redirect {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #64748b;
+      cursor: pointer;
+      text-decoration: underline;
+      background: none;
+      border: none;
+    }
+
+    .cancel-redirect:hover {
+      color: #94a3b8;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      .product-box {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Success Badge -->
+    <div class="success-badge">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+
+    <!-- Branding & Header -->
+    <div class="brand-title">The VirtusFX • Alchemist SnR</div>
+    <h1>Payment Successful!</h1>
+    <p class="subtitle">Your order has been confirmed. You now have full lifetime access to the trading playbook.</p>
+
+    <!-- Product Summary Box -->
+    <div class="product-box">
+      <div class="product-icon">
+        <svg fill="currentColor" viewBox="0 0 24 24">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+        </svg>
+      </div>
+      <div class="product-details">
+        <h3>MSNR + ICT Scalping Playbook</h3>
+        <p>Complete 5-Page Guide • Top-Down Cascade • Live Trade Models</p>
+      </div>
+    </div>
+
+    <!-- Auto-Redirect Countdown -->
+    <div class="redirect-status" id="redirectStatus">
+      <span>Redirecting you to Google Drive in <span class="timer-count" id="countdown">5</span> seconds...</span>
+    </div>
+
+    <!-- Direct CTA Button -->
+    <a href="#" id="driveLinkBtn" class="btn-access" target="_blank" rel="noopener noreferrer">
+      <span>Open Playbook in Google Drive</span>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+      </svg>
+    </a>
+
+    <div>
+      <button class="cancel-redirect" id="stopTimerBtn" onclick="stopRedirect()">Stop Auto-Redirect</button>
+    </div>
+
+    <!-- Support Section -->
+    <div class="support-note">
+      💡 <strong>Pro Tip:</strong> Please bookmark the Google Drive folder or save the PDF to your device.<br>
+      Need help? Reach out on Instagram / Telegram: <a href="https://instagram.com" target="_blank" id="supportLink">@thevirtusfx</a>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // ⚙️ CONFIGURATION: PASTE YOUR GOOGLE DRIVE LINK HERE
+    // ==========================================
+    const DEFAULT_DRIVE_URL = "https://drive.google.com/drive/folders/YOUR_FOLDER_ID_HERE";
+    
+    // Check if a custom drive link is passed in URL (e.g. ?drive=https://...)
+    const urlParams = new URLSearchParams(window.location.search);
+    const driveUrl = urlParams.get('drive') || urlParams.get('link') || DEFAULT_DRIVE_URL;
+
+    const driveLinkBtn = document.getElementById('driveLinkBtn');
+    driveLinkBtn.href = driveUrl;
+
+    // Countdown and Auto-Redirect Logic
+    let seconds = 5;
+    const countdownEl = document.getElementById('countdown');
+    const redirectStatusEl = document.getElementById('redirectStatus');
+    let timerRunning = true;
+
+    const countdownInterval = setInterval(() => {
+      if (!timerRunning) return;
+      seconds--;
+      if (countdownEl) countdownEl.innerText = seconds;
+
+      if (seconds <= 0) {
+        clearInterval(countdownInterval);
+        // Only redirect if default URL was replaced with a real link
+        if (driveUrl && !driveUrl.includes("YOUR_FOLDER_ID_HERE")) {
+          window.location.href = driveUrl;
+        } else {
+          redirectStatusEl.innerHTML = "<span>👉 Click the button below to access your files</span>";
+        }
+      }
+    }, 1000);
+
+    function stopRedirect() {
+      timerRunning = false;
+      clearInterval(countdownInterval);
+      redirectStatusEl.innerHTML = "<span>Auto-redirect paused. Click the button below when ready.</span>";
+      document.getElementById('stopTimerBtn').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
